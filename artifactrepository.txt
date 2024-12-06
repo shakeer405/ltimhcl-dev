@@ -1,0 +1,34 @@
+1.1 core equals to 2 Vcpus
+https://gcping.com/ -- To get latency from your zone
+
+Cloud Artifact Registry:
+========================
+1.creating repo:
+
+gcloud artifacts repositories create my-docker-repo \
+    --repository-format=docker \
+    --location=us-central1 \
+    --description="Repository for Docker images"
+
+2.Authenticate with Artifact Registry
+
+gcloud auth configure-docker us-central1-docker.pkg.dev
+
+3.Push an image:
+
+docker tag nginx us-central1-docker.pkg.dev/ltmhcl-dev/my-docker-repo/nginx:v1.1
+docker push us-central1-docker.pkg.dev/ltmhcl-dev/my-docker-repo/nginx:v1.1
+
+4.Set IAM Permissions
+gcloud artifacts repositories add-iam-policy-binding my-docker-repo \
+    --location=us-central1 \
+    --member="shakeer.dcm@gmail.com" \
+    --role="roles/artifactregistry.reader"
+
+scan images	
+5.gcloud artifacts docker images scan us-central1-docker.pkg.dev/ltmhcl-dev/my-docker-repo/nginx:v1.1
+
+view scan results:
+gcloud artifacts docker images describe us-central1-docker.pkg.dev/ltmhcl-dev/my-docker-repo/nginx:v1.1 \
+    --show-vulnerabilities
+	
