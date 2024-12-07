@@ -1,0 +1,8 @@
+runtime: custom
+entrypoint: gunicorn -b :$PORT main:app
+env: flex
+network:
+  name: ltimhcl-dev
+  subnetwork_name: ltimhcl-dev-subnet
+manual_scaling:
+  instances: 1
