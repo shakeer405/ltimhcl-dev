@@ -1,0 +1,18 @@
+steps:
+  # Step 1: Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '--tag'
+      - 'us-central1-docker.pkg.dev/ltmhcl-dev/my-docker-repo/cloudrunpython:v1'
+      - '.'
+
+  # Step 2: Push the Docker image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'us-central1-docker.pkg.dev/ltmhcl-dev/my-docker-repo/cloudrunpython:v1'
+
+images:
+  - 'us-central1-docker.pkg.dev/ltmhcl-dev/my-docker-repo/cloudrunpython:v1'
+
