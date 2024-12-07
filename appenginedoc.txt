@@ -1,0 +1,119 @@
+Getting Started with App Engine
+1. Enable the App Engine API
+bash
+Copy code
+gcloud services enable appengine.googleapis.com
+2. Create an App Engine Application
+App Engine applications are tied to a specific region. Choose the region closest to your users.
+
+bash
+Copy code
+gcloud app create --region=[REGION]
+Example:
+
+bash
+Copy code
+gcloud app create --region=us-central
+3. Write Your Application
+Prepare your application files. For example, a Python Flask app:
+
+main.py:
+
+python
+Copy code
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    return 'Hello, App Engine!'
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8080)
+app.yaml (Configuration File):
+
+yaml
+Copy code
+runtime: python39
+entrypoint: gunicorn -b :$PORT main:app
+4. Deploy Your Application
+Deploy the application using the gcloud CLI:
+
+bash
+Copy code
+gcloud app deploy
+This command:
+
+Uploads your application.
+Configures the runtime environment.
+Creates the required resources.
+5. Access Your Application
+Once deployed, access your application at:
+
+plaintext
+Copy code
+https://[PROJECT_ID].appspot.com
+Managing App Engine Applications
+1. View Application Logs
+To view logs for troubleshooting:
+
+bash
+Copy code
+gcloud app logs read
+2. View Deployed Versions
+List all deployed versions of your application:
+
+bash
+Copy code
+gcloud app versions list
+3. Split Traffic Between Versions
+Route a percentage of traffic to different versions:
+
+bash
+Copy code
+gcloud app services set-traffic [SERVICE_NAME] \
+    --splits [VERSION_1]=[PERCENTAGE_1],[VERSION_2]=[PERCENTAGE_2]
+4. Delete an Application
+You cannot directly delete an App Engine application. Instead, you must disable the App Engine application via the console.
+
+Pricing
+App Engine pricing is based on:
+
+Compute instance hours.
+Incoming and outgoing network traffic.
+Storage usage.
+Free Tier: App Engine offers a free tier for each project, including:
+
+28 instance hours per day.
+Limited network and storage quotas.
+For detailed pricing, refer to App Engine Pricing.
+
+Best Practices
+Use Standard Environment for Simple Apps:
+
+Ideal for small apps with minimal resource requirements.
+Monitor Resource Usage:
+
+Use Cloud Monitoring to optimize costs and identify bottlenecks.
+Use Traffic Splitting for Deployments:
+
+Gradually roll out new versions to avoid downtime.
+Optimize Cold Start Times:
+
+For Standard Environment, minimize app initialization time to reduce latency during cold starts.
+Secure Your Application:
+
+Use IAM to restrict access to services and APIs.
+gcloud Commands for App Engine
+Command	Description
+gcloud app create	Creates a new App Engine application.
+gcloud app deploy	Deploys your application to App Engine.
+gcloud app browse	Opens the App Engine app in a web browser.
+gcloud app logs read	Reads application logs.
+gcloud app versions list	Lists all deployed versions of the application.
+gcloud app services set-traffic	Routes traffic between versions.
+gcloud app regions list	Lists supported regions for App Engine.
+gcloud app firewall-rules list	Displays App Engine firewall rules.
+gcloud app domain-mappings list	Lists custom domain mappings for the application.
+
