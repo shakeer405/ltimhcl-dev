@@ -1,18 +1,19 @@
 import argparse
 import json
-from datetime import datetime
-
 import apache_beam as beam
 from apache_beam.options.pipeline_options import PipelineOptions, StandardOptions
 from apache_beam.io.gcp.pubsub import ReadFromPubSub
 from apache_beam.io.gcp.bigquery import WriteToBigQuery
-
+from datetime import datetime
 
 def parse_message(message):
     """
     Parse and validate Pub/Sub message.
     """
     try:
+        # Import datetime within the function
+        from datetime import datetime
+
         # Decode JSON message
         payload = json.loads(message)
         # Validate fields
@@ -42,27 +43,28 @@ def parse_message(message):
 
 
 def run(argv=None):
-    """
-    Main entry point for the Dataflow pipeline.
-    """
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--input_topic",
-        required=True,
-        help="Pub/Sub topic to read data from, e.g., projects/your-project-id/topics/iot-data-topic",
-    )
-    parser.add_argument(
-        "--output_table",
-        required=True,
-        help="BigQuery table to write data to, e.g., your-project-id:iot_data.telemetry",
-    )
+    parser = argparse.ArgumentParser(description="Dataflow Pipeline")
+
+    parser.add_argument("--input_topic", required=True, help="Pub/Sub topic to read from.")
+    parser.add_argument("--output_table", required=True, help="BigQuery table to write to.")
+    parser.add_argument("--runner", default="DirectRunner", help="Pipeline runner.")
+    parser.add_argument("--project", required=True, help="Google Cloud project ID.")
+    parser.add_argument("--region", required=True, help="Region for Dataflow execution.")
+    parser.add_argument("--temp_location", required=True, help="Temporary files location in GCS.")
+    parser.add_argument("--staging_location", required=True, help="Staging files location in GCS.")
+
     args, pipeline_args = parser.parse_known_args(argv)
 
-    # Define pipeline options
-    options = PipelineOptions(pipeline_args)
-    options.view_as(StandardOptions).streaming = True  # Enable streaming mode
+    options = PipelineOptions(
+        pipeline_args,
+        runner=args.runner,
+        project=args.project,
+        region=args.region,
+        temp_location=args.temp_location,
+        staging_location=args.staging_location,
+    )
+    options.view_as(StandardOptions).streaming = True
 
-    # Define the pipeline
     with beam.Pipeline(options=options) as p:
         (
             p
@@ -85,3 +87,8 @@ def run(argv=None):
                 write_disposition=beam.io.BigQueryDisposition.WRITE_APPEND,
             )
         )
+
+
+if __name__ == "__main__":
+    run()
+

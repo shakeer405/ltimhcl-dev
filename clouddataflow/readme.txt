@@ -16,8 +16,8 @@ Table: telemetry
 
 CREATE TABLE `your_project_id.iot_data.telemetry` (
     device_id STRING,
-    temperature FLOAT,
-    humidity FLOAT,
+    temperature FLOAT64,
+    humidity FLOAT64,
     status STRING,
     timestamp TIMESTAMP
 );
