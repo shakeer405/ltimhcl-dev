@@ -1,5 +1,5 @@
 # Stage 1: Build Stage
-FROM maven:3.8-openjdk-11 AS build
+FROM docker.io/library/maven:3.8.3-openjdk-17 AS build
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -17,7 +17,7 @@ COPY src /app/src
 RUN mvn clean package -DskipTests
 
 # Stage 2: Runtime Stage
-FROM openjdk:11-jre-slim
+FROM docker.io/library/openjdk:11-jre-slim
 
 # Set the working directory inside the container
 WORKDIR /app
