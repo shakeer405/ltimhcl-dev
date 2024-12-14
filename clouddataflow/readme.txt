@@ -38,4 +38,4 @@ python main.py \
     --region us-central1 \
     --temp_location gs://your-bucket/temp \
     --staging_location gs://your-bucket/staging
-
+ 
