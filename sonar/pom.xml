@@ -25,7 +25,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.1</version>
+		    <version>3.8.1</version>
+		    <configuration>
+                <source>1.8</source> <!-- Set the source version to 1.8 or higher -->
+                <target>1.8</target> <!-- Set the target version to 1.8 or higher -->
+            </configuration>
+
                 </plugin>
                 <plugin>
                     <groupId>org.sonarsource.scanner.maven</groupId>
