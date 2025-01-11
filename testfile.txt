@@ -1,1 +1,1 @@
-This branch is for staging team
+This branch is for QA team
