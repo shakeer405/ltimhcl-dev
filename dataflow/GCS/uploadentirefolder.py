@@ -4,7 +4,8 @@ import os
 def upload_folder(bucket_name, folder_path):
     client = storage.Client()
     bucket = client.bucket(bucket_name)
-    for root, _, files in os.walk(folder_path):
+    for root, dirs, files in os.walk(folder_path):
+        print(root, dirs, files)
         for file_name in files:
             local_file_path = os.path.join(root, file_name)
             print(local_file_path)
