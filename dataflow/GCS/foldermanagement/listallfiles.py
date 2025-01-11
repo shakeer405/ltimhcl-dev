@@ -13,7 +13,7 @@ def list_files_in_folder(bucket_name, folder_name):
 
 
 if __name__ == "__main__":
-    bucketname="ltidevbucket-998"
-    folder_name = "."
+    bucketname="ltidevbucket-999"
+    folder_name = "ltidevbucket-999"
 
     list_files_in_folder(bucketname, folder_name)
