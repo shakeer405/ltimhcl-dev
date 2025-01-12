@@ -4,6 +4,9 @@ substitutions:
   REPO_URL: "https://github.com/shakeer405/ltimhcl-dev.git"
   MY-REPO: 'my-docker-repo'
 
+options:
+  defaultLogsBucketBehavior: "REGIONAL_USER_OWNED_BUCKET"
+
 steps:
   - name: "gcr.io/cloud-builders/git"
     args: ["clone", "${REPO_URL}"]
