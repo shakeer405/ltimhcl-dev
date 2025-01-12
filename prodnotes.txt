@@ -1,1 +1,2 @@
 this is the production release notes
+included cloud build documentation for GCP CICD
