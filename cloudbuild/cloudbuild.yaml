@@ -1,0 +1,13 @@
+substitutions:
+  PROJECT_ID: "ltmhcl-dev"
+  APP_NAME: "uid-gen"
+  REPO_URL: "https://github.com/shakeer405/ltimhcl-dev.git"
+  MY-REPO: 'my-docker-repo'
+
+steps:
+  - name: "gcr.io/cloud-builders/git"
+    args: ["clone", "${REPO_URL}"]
+  - name: 'gcr.io/cloud-builders/docker'
+    args:   ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/$MY-REPO/$APP_NAME:$SHORT_SHA', 'appengine-flex/Dockerfile']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/$MY-REPO/$APP_NAME:$SHORT_SHA']
