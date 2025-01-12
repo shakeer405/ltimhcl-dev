@@ -1,7 +1,7 @@
 substitutions:
   PROJECT_ID: "ltmhcl-dev"
   _APP_NAME: "uid-gen"
-  _REPO_URL: "https://github.com/shakeer405/ltimhcl-dev.git"
+  # _REPO_URL: "https://github.com/shakeer405/ltimhcl-dev.git"
   _MY_REPO: 'my-docker-repo'
 
 options:
