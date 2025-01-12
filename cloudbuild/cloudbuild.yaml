@@ -1,8 +1,8 @@
 substitutions:
   PROJECT_ID: "ltmhcl-dev"
   _APP_NAME: "uid-gen"
-  REPO_URL: "https://github.com/shakeer405/ltimhcl-dev.git"
-  MY_REPO: 'my-docker-repo'
+  _REPO_URL: "https://github.com/shakeer405/ltimhcl-dev.git"
+  _MY_REPO: 'my-docker-repo'
 
 options:
   defaultLogsBucketBehavior: "REGIONAL_USER_OWNED_BUCKET"
@@ -11,6 +11,6 @@ steps:
   - name: "gcr.io/cloud-builders/git"
     args: ["clone", "${REPO_URL}"]
   - name: 'gcr.io/cloud-builders/docker'
-    args:   ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/$MY_REPO/$_APP_NAME:$SHORT_SHA', 'appengine-flex/Dockerfile']
+    args:   ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/$_MY_REPO/$_APP_NAME:$SHORT_SHA', 'appengine-flex/Dockerfile']
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/$MY_REPO/$_APP_NAME:$SHORT_SHA']
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/$_MY_REPO/$_APP_NAME:$SHORT_SHA']
