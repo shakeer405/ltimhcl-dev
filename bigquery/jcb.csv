@@ -1,0 +1,2 @@
+device_id,temperature,humidity,status,timestamp
+"jcb-11",100,54,"active",2025-01-08 10:38:37.944529 UTC
