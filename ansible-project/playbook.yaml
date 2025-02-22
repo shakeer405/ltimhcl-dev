@@ -1,0 +1,7 @@
+---
+- name: Deploy Apache
+  hosts: webserver
+  become: yes
+  roles:
+    - cicd_role
+

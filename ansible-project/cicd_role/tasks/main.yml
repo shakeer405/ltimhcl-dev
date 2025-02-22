@@ -1,0 +1,7 @@
+# tasks file for cicd_role
+---
+- name: Ensure Apache is installed
+  ansible.builtin.package:
+    name: httpd
+    state: present
+
